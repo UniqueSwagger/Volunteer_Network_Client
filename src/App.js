@@ -1,23 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Home from "./Components/Home/Home";
+import Login from "./Components/Login/Login";
+import Navigation from "./Components/Shared/Navigation/Navigation";
+import Signup from "./Components/Signup/Signup";
+import AuthProvider from "./context/AuthProvider";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
+import Register from "./Components/Register/Register";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import UserEvents from "./Components/UserEvents/UserEvents";
+import NotFound from "./Components/NotFound/NotFound";
+import Admin from "./Components/Admin/Admin";
+import AddEvent from "./Components/AddEvent/AddEvent";
+import ManageAllEvents from "./Components/ManageAllEvents/ManageAllEvents";
+import MakeAdmin from "./Components/MakeAdmin/MakeAdmin";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AuthProvider>
+        <Router>
+          <Navigation />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/home">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/addEvent">
+              <AddEvent />
+            </Route>
+            <Route path="/makeAdmin">
+              <MakeAdmin />
+            </Route>
+            <Route path="/forget-password">
+              <ForgotPassword />
+            </Route>
+            <Route path="/manageEvents">
+              <ManageAllEvents />
+            </Route>
+            <PrivateRoute path="/register/:eventId">
+              <Register />
+            </PrivateRoute>
+            <PrivateRoute path="/registeredEvents/myEvents">
+              <UserEvents />
+            </PrivateRoute>
+            <PrivateRoute path="/registeredEvents/">
+              <NotFound />
+            </PrivateRoute>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }
