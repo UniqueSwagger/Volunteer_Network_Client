@@ -36,7 +36,7 @@ const Register = () => {
     data.date = date;
     data.event = event.name;
     data.imgURL = event.image;
-    data.displayName = displayName;
+    data.name = displayName;
     data.email = email;
     const exist = registeredEvents.find((event) => event.event === data.event);
     if (exist) {
