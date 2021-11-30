@@ -24,6 +24,9 @@ const Register = () => {
       .then((res) => setRegisteredEvents(res.data));
   }, []);
 
+  const {
+    currentUser: { displayName, email },
+  } = useAuth();
   const onSubmit = (data) => {
     setLoading(true);
     const month = value.getUTCMonth() + 1; //months from 1-12
@@ -33,6 +36,8 @@ const Register = () => {
     data.date = date;
     data.event = event.name;
     data.imgURL = event.image;
+    data.displayName = displayName;
+    data.email = email;
     const exist = registeredEvents.find((event) => event.event === data.event);
     if (exist) {
       window.scrollTo(0, 40);
@@ -49,9 +54,6 @@ const Register = () => {
         });
     }
   };
-  const {
-    currentUser: { displayName, email },
-  } = useAuth();
   const { eventId } = useParams();
   useEffect(() => {
     axios
