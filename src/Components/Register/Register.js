@@ -43,7 +43,7 @@ const Register = () => {
         .post("https://secure-brook-32131.herokuapp.com/register", data)
         .then((res) => {
           if (res.data.insertedId) {
-            history.push(`/registeredEvents/${data.email}`);
+            history.push(`/registeredEvents/myEvents`);
             setLoading(false);
           }
         });
